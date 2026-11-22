@@ -1,0 +1,13 @@
+services:
+  mysql:
+    image: mysql:8.0                # versión de MySQL a descargar
+    container_name: kiosco-mysql    # nombre del contenedor
+    environment:
+      MYSQL_ROOT_PASSWORD: root1234 # contraseña del usuario root
+    ports:
+      - "3306:3306"                 # puerto de tu PC : puerto del contenedor
+    volumes:
+      - kiosco-datos:/var/lib/mysql # los datos sobreviven si se apaga el contenedor
+
+volumes:
+  kiosco-datos:
