@@ -82,3 +82,6 @@ input:focus, select:focus { outline: 2px solid var(--primario); }
   .sesion { margin-left: 0; }
   .tabla { font-size: 0.85rem; }
 }
+
+.stock { display: flex; align-items: center; gap: 8px; }
+.stock span { min-width: 24px; text-align: center; }

@@ -18,4 +18,6 @@ router.put("/:id", ProductoController.actualizar)
 
 router.delete("/:id", ProductoController.eliminar)
 
+router.patch("/:id/stock", ProductoController.ajustarStock)
+
 export default router

@@ -23,3 +23,7 @@ export function actualizar(id, producto){
 export function eliminar(id){
     return request(`/productos/${id}`, {method: "DELETE"})
 }
+
+export function ajustarStock(id, cantidad) {
+    return request(`/productos/${id}/stock`, { method: "PATCH", body: { cantidad } })
+}

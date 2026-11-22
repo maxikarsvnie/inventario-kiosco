@@ -4,7 +4,7 @@ import { useProductos } from "../hooks/useProductos.js"
 import Mensaje from "../components/Mensaje.jsx"
 
 function Productos() {
-    const { productos, stockBajo, minimo, cargando, error, eliminar } = useProductos()
+    const { productos, stockBajo, minimo, cargando, error, eliminar, ajustarStock } = useProductos()
     const [errorAccion, setErrorAccion] = useState(null)
 
     async function manejarEliminar(producto) {
@@ -13,6 +13,15 @@ function Productos() {
             setErrorAccion(null)
             await eliminar(producto.id)
         } catch (err) {
+            setErrorAccion(err.message)
+        }
+    }
+
+    async function manejarAjuste(producto, cantidad) {
+        try{
+            setErrorAccion(null)
+            await ajustarStock(producto.id, cantidad)
+        } catch (err){
             setErrorAccion(err.message)
         }
     }
@@ -63,7 +72,15 @@ function Productos() {
                                 <td>{p.categoria}</td>
                                 {/* precio llega como texto ("850.50"): lo convertimos para formatearlo */}
                                 <td>${Number(p.precio).toFixed(2)}</td>
-                                <td>{p.stock}</td>
+                                <td>
+                                    <div className="stock">
+                                        <button className="btn-secundario btn-chico" title="Vender 1"
+                                            onClick={() => manejarAjuste(p, -1)} disabled={p.stock === 0}>−</button>
+                                        <span>{p.stock}</span>
+                                        <button className="btn-secundario btn-chico" title="Reponer 1"
+                                            onClick={() => manejarAjuste(p, 1)}>+</button>
+                                    </div>
+                                </td>
                                 <td>
                                     <button className="btn-peligro btn-chico" onClick={() => manejarEliminar(p)}>
                                         Eliminar

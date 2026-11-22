@@ -250,6 +250,7 @@ Authorization: Bearer <token>
 | POST   | /api/productos            | Crear un producto                          |
 | PUT    | /api/productos/:id        | Actualizar un producto                     |
 | DELETE | /api/productos/:id        | Eliminar un producto                       |
+| PATCH  | /api/productos/:id/stock  | Sumar o restar unidades al stock           |
 
 ### Códigos de respuesta
 

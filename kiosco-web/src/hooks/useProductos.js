@@ -37,5 +37,12 @@ export function useProductos() {
         setStockBajo(anteriores => anteriores.filter(p => p.id !== id))
     }
 
-    return { productos, stockBajo, minimo, cargando, error, eliminar }
+    async function ajustarStock(id, cantidad) {
+        const actualizado = await productosService.ajustarStock(id, cantidad)
+        //Reemplaza el producto viekjp por el nuevo
+        setProductos(anteriores => anteriores.map(p => p.id === id ? actualizado : p))
+        const alerta = await productosService.stockBajo()
+        setStockBajo(alerta.productos)
+    }
+    return { productos, stockBajo, minimo, cargando, error, eliminar, ajustarStock }
 }

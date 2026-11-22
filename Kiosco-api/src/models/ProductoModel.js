@@ -59,3 +59,16 @@ export async function eliminar(id, usuarioId) {
     )
     return resultado.affectedRows > 0
 }
+
+//Suma y resta unidades al Stock 
+export async function ajustarStock(id, usuarioId, cantidad) {
+    const [resultdado] = await pool.query(
+        "UPDATE productos SET stock = stock + ? WHERE id = ? AND usuario_id = ? AND stock + ? >= 0",
+        [cantidad, id, usuarioId, cantidad]
+    )
+
+    if (resultdado.affectedRows === 0){
+        return null
+    }
+    return obtenerPorId(id, usuarioId)
+}

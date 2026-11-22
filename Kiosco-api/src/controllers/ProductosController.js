@@ -140,3 +140,31 @@ export async function eliminar(req, res, next) {
         next(error)
     }
 }
+
+export async function ajustarStock(req, res, next) {
+    try{
+        const id = Number(req.params.id)
+        const cantidad = Number(req.body?.cantidad)
+
+        if(!Number.isInteger(id) || id <= 0){
+            return res.status(400).json({error: "ID invalido"})
+        }
+        if(!Number.isInteger(cantidad) || cantidad === 0){
+            return res.status(400).json({error: "La cantidad debe der distinta a 0"})
+        }
+
+        //Compramos que exista
+        const existente = await ProductoModel.obtenerPorId(id, req.usuario.id)
+        if(!existente){
+            return res.status(404).json({error: "Producto no encontrado"})
+        }
+
+        const producto = await ProductoModel.ajustarStock(id, req.usuario.id, cantidad)
+        if(!producto){
+            return res.status(400).json({error: `No hay stock suficiente (quedan ${existente.stock})`})
+        }
+        res.json(producto)
+    } catch(error){
+        next(error)
+    }
+}
