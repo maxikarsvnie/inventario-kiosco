@@ -85,3 +85,12 @@ input:focus, select:focus { outline: 2px solid var(--primario); }
 
 .stock { display: flex; align-items: center; gap: 8px; }
 .stock span { min-width: 24px; text-align: center; }
+
+/* Alerta de stock bajo en una sola línea */
+.alerta-compacta { display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+
+/* Barra de filtros */
+.filtros { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; margin-bottom: 8px; }
+.filtros input[type="search"] { flex: 1; min-width: 200px; }
+.check { display: flex; align-items: center; gap: 6px; cursor: pointer; white-space: nowrap; }
+.contador { color: var(--suave); font-size: 0.85rem; margin: 8px 0; }
